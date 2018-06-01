@@ -18,10 +18,10 @@
 
 
       const {dialog} = require('electron').remote;
-      
+
       function openFile () {
 
-          dialog.showOpenDialog(function (fileNames) {
+          dialog.showOpenDialog({filters: [{name: 'pdf', extensions: ['pdf']}]}, function (fileNames) {
 
               if (fileNames === undefined) return;
 
