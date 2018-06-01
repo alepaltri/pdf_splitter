@@ -1,27 +1,18 @@
-var hummus = require('hummus');
 var PdfReader = require('pdfreader').PdfReader;
-var Rule = require('pdfreader').Rule;
 var _= require('lodash');
+var generator = require('./generator.js');
 var parser = {};
 
 var comprobantes = [];
 var currentPage = 0;
 var retriveNextValue = false;
 
-parser.parsepage = function() {
+parser.parsepage = function(filename, output, regex) {
   var reader =  new PdfReader();
 
-  reader.parseFileItems('./examples-pdf/4Facturas.pdf', function(err, item){
+  reader.parseFileItems(filename, function(err, item){
     if (item == null) {
-      for (var comprobante in comprobantes) {
-        pages = comprobantes[comprobante];
-        console.log(`COMPR: ${comprobante}  FIRST: ${_.first(pages)} LAST: ${_.last(pages)}`);
-        var pdfWriter = hummus.createWriter('./output/' + comprobante + '.pdf');
-        pdfWriter.appendPDFPagesFromPDF('./examples-pdf/4Facturas.pdf', {
-          type:hummus.eRangeTypeSpecific,specificRanges: [ [ _.first(pages), _.last(pages)  ] ]
-        });
-        pdfWriter.end();
-      }
+      generator.generateFiles(comprobantes,filename, output);
     } else if (!item || item.page) {
       currentPage = item.page;
     } else if (item.text) {
@@ -33,17 +24,10 @@ parser.parsepage = function() {
 
         }
       }
-      retriveNextValue = RegExp("^Comp\. Nro:").test(item.text);
+      retriveNextValue = RegExp("^" + regex).test(item.text);
     }
   });
 
-
 };
-
-
-//var pdfReader = hummus.createReader();
-//console.log(pdfReader.getPagesCount());
-//var dic = pdfReader.parsePageDictionary(1);
-//console.log(dic);
 
 module.exports = parser;

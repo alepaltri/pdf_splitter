@@ -1,9 +1,9 @@
 const {ipcMain} = require('electron');
 var parser = require('./parser.js');
 
-ipcMain.on('parse-pdf', (event, arg) => {
-    parser.parsepage();
-    event.returnValue = 'pong'
+ipcMain.on('parse-pdf', (event, input, output, regex) => {
+    parser.parsepage(input, output, regex);
+    event.returnValue = 'pong';
   });
 
 // Modules to control application life and create native browser window

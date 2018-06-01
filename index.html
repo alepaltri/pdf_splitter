@@ -7,10 +7,14 @@
   <body>
     <h1>Hello World!</h1>
 
-    <span id="filename"></span>
-    <button id="openFile" onclick="openFile();">Seleccionar PDF</button>
-    <button id="splitFile" onclick="splitFile();">Separar</button><br />
+    Input: <input type="text" id="filename" name="filename"><button id="openFile" onclick="openFile();">Seleccionar PDF</button><br/>
+    Output: <input type="text" id="output" name="output"><button id="openPath" onclick="openPath();">Seleccionar Folder</button><br/>
+    Regex: <input type="text" id="regex" name="regex"><br/>
 
+    <button class="execute">Ejecutar</button><br/>
+
+    <div id="loading" style="display:none;">Loading...</div>
+    <div id="done" style="display:none;">Hecho!</div>
 
     <script>
       // You can also require other files to run in this process
@@ -27,10 +31,19 @@
 
               var fileName = fileNames[0];
               console.log(fileName);
-              document.getElementById("filename").textContent = fileName;
+              document.getElementById("filename").value = fileName;
 
           });
       }
+
+      function openPath () {
+          var path = dialog.showOpenDialog({
+              properties: ['openDirectory']
+          });
+
+          document.getElementById("output").value = path;
+      }
+
 
     </script>
   </body>
