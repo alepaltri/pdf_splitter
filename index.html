@@ -6,14 +6,32 @@
   </head>
   <body>
     <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+
+    <span id="filename"></span>
+    <button id="openFile" onclick="openFile();">Seleccionar PDF</button>
+    <button id="splitFile" onclick="splitFile();">Separar</button><br />
+
 
     <script>
       // You can also require other files to run in this process
-      require('./renderer.js')
+      require('./renderer.js');
+
+
+      const {dialog} = require('electron').remote;
+      
+      function openFile () {
+
+          dialog.showOpenDialog(function (fileNames) {
+
+              if (fileNames === undefined) return;
+
+              var fileName = fileNames[0];
+              console.log(fileName);
+              document.getElementById("filename").textContent = fileName;
+
+          });
+      }
+
     </script>
   </body>
 </html>
