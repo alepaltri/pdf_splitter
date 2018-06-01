@@ -18,5 +18,10 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^2.0.0"
+  },
+  "dependencies": {
+    "hummus": "^1.0.87",
+    "lodash": "^4.17.10",
+    "pdfreader": "^0.2.5"
   }
 }
