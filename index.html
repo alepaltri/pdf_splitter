@@ -3,23 +3,55 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <div class="container">
+        <div class="row">
+            <h3>Pdf Splitter!</h3>
+        </div>
 
-    Input: <input type="text" id="filename" name="filename"><button id="openFile" onclick="openFile();">Seleccionar PDF</button><br/>
-    Output: <input type="text" id="output" name="output"><button id="openPath" onclick="openPath();">Seleccionar Folder</button><br/>
-    Regex: <input type="text" id="regex" name="regex"><br/>
+        <div class="row">
+            <div class="input-field col s8">
+                <input type="text" id="filename" name="filename">
+                <label for="filename">Input</label>
+            </div>
+            <div class="col s4">
+                <a id="openFile" onclick="openFile()" class="waves-effect waves-light btn execute">Seleccionar PDF</a>
+            </div>
+        </div>
 
-    <button class="execute">Ejecutar</button><br/>
+        <div class="row">
+            <div class="input-field col s8">
+                <input type="text" id="output" name="output">
+                <label for="output">Output</label>
+            </div>
+            <div class="col s4">
+                <a id="openPath" onclick="openPath()" class="waves-effect waves-light btn execute">Seleccionar Carpeta</a>
+            </div>
+        </div>
+        <div class="row">
+            Texto a Buscar: <input type="text" id="regex" name="regex"><br/>
+        </div>
+        <div class="row">
+            <!--<button class="execute">Ejecutar</button><br/>-->
+            <a class="waves-effect waves-light btn execute" onclick="exec();">Ejecutar</a>
+        </div>
 
-    <div id="loading" style="display:none;">Loading...</div>
-    <div id="done" style="display:none;">Hecho!</div>
+            <div id="loading" style="display:none;">Loading...</div>
+            <div id="done" style="display:none;">Hecho!</div>
+    </div>
 
     <script>
       // You can also require other files to run in this process
       require('./renderer.js');
-
+      var exec =   require('./executer.js');
 
       const {dialog} = require('electron').remote;
 
